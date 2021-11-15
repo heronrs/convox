@@ -1,5 +1,5 @@
 variable "image" {
-  default = "polytomic/convox"
+  default = "convox/convox"
 }
 
 variable "name" {

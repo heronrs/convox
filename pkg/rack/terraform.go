@@ -610,7 +610,7 @@ func terraformLatestVersion() (string, error) {
 		return TestLatest, nil
 	}
 
-	res, err := http.Get("https://api.github.com/repos/polytomic/convox/releases/latest")
+	res, err := http.Get("https://api.github.com/repos/convox/convox/releases/latest")
 	if err != nil {
 		return "", err
 	}
