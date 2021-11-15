@@ -2,10 +2,10 @@
 
 FROM golang:1.16 AS development
 
-ARG DOCKER_ARCH=x86_64
-ARG KUBECTL_ARCH=amd64
+ARG DOCKER_ARCH=aarch64
+ARG KUBECTL_ARCH=arm64
 
-RUN apt-get update && apt-get -y install default-mysql-client postgresql-client redis-tools telnet
+RUN apt-get update && apt-get -y install default-mysql-client postgresql-client redis-tools telnet xz-utils
 
 RUN curl -s https://download.docker.com/linux/static/stable/$DOCKER_ARCH/docker-20.10.7.tgz | \
   tar -C /usr/bin --strip-components 1 -xz
@@ -13,8 +13,8 @@ RUN curl -s https://download.docker.com/linux/static/stable/$DOCKER_ARCH/docker-
 RUN curl -Ls https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/linux/$KUBECTL_ARCH/kubectl -o /usr/bin/kubectl && \
   chmod +x /usr/bin/kubectl
 
-RUN curl -Ls https://github.com/mattgreen/watchexec/releases/download/1.8.6/watchexec-1.8.6-x86_64-unknown-linux-gnu.tar.gz | \
-  tar -C /usr/bin --strip-components 1 -xz
+RUN curl -Ls https://github.com/watchexec/watchexec/releases/download/1.15.0/watchexec-1.15.0-${DOCKER_ARCH}-unknown-linux-gnu.tar.xz | \
+  tar -C /usr/bin --strip-components 1 -xJ
 
 ENV DEVELOPMENT=true
 
